@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -25,6 +27,23 @@
                 <li><a href="#progress"><i class="fas fa-chart-line"></i> Tien do</a></li>
             </ul>
             <div class="nav-right">
+                <!-- Nút Auth (Hiển thị khi chưa đăng nhập) -->
+                <div class="auth-buttons-nav" id="authNavContainer">
+                    <a href="auth.html" class="btn btn-outline btn-sm"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
+                </div>
+
+                <!-- Menu người dùng (Hiển thị sau khi đăng nhập thành công) -->
+                <div class="user-menu-nav hidden" id="userNavContainer">
+                    <div class="user-avatar-nav" id="userAvatarNav">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <span class="user-name-nav" id="userNameNav">Học viên</span>
+                    <div class="user-dropdown-nav" id="userDropdownNav">
+                        <a href="#progress"><i class="fas fa-chart-line"></i> Tiến độ học</a>
+                        <a href="#" id="logoutBtnNav"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                </div>
+
                 <button class="theme-toggle" id="themeToggle" title="Chuyen giao dien">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -415,6 +434,8 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    <script src="supabase-client.js"></script>
+    <script src="progress-sync.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

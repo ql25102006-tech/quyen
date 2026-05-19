@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập / Đăng ký - EngMaster</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="auth-theme-container">
+        <button class="theme-toggle" id="themeToggle" title="Chuyển giao diện">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <!-- Left Illustration Side -->
+            <div class="auth-aside">
+                <a href="index.html" class="aside-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Eng<span class="highlight">Master</span></span>
+                </a>
+                <div class="aside-content">
+                    <h2>Nâng tầm tiếng Anh của bạn</h2>
+                    <p>Đăng ký tài khoản để đồng bộ tiến độ học tập trên mọi thiết bị, lưu từ vựng đã học và tham gia tranh tài trên bảng xếp hạng.</p>
+                </div>
+                <div class="aside-floating">
+                    <div class="floating-bubble bubble-1">Interactive Flashcard</div>
+                    <div class="floating-bubble bubble-2">Realtime Quiz</div>
+                    <div class="floating-bubble bubble-3">Cloud Sync</div>
+                </div>
+            </div>
+
+            <!-- Right Form Side -->
+            <div class="auth-form-container">
+                <a href="index.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Quay lại Trang chủ</a>
+
+                <!-- LOGIN FORM -->
+                <div class="auth-form-box active" id="loginBox">
+                    <div class="form-header">
+                        <h2>Chào mừng trở lại!</h2>
+                        <p>Đăng nhập để tiếp tục hành trình học tiếng Anh của bạn.</p>
+                    </div>
+                    <form id="loginForm">
+                        <div class="input-group">
+                            <label for="loginEmail">Email</label>
+                            <div class="input-field">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="loginEmail" placeholder="example@gmail.com" required autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="label-row">
+                                <label for="loginPassword">Mật khẩu</label>
+                                <a href="#" class="forgot-pass" id="forgotPassLink">Quên mật khẩu?</a>
+                            </div>
+                            <div class="input-field">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="loginPassword" placeholder="Tối thiểu 6 ký tự" required autocomplete="current-password">
+                                <button type="button" class="toggle-password" onclick="togglePassVisibility('loginPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="loginSubmitBtn">
+                            <span class="btn-text">Đăng nhập</span>
+                            <span class="spinner hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        </button>
+                    </form>
+                    <div class="form-footer">
+                        <span>Bạn chưa có tài khoản? <a href="#" id="toRegister">Đăng ký ngay</a></span>
+                    </div>
+                </div>
+
+                <!-- REGISTER FORM -->
+                <div class="auth-form-box" id="registerBox">
+                    <div class="form-header">
+                        <h2>Tạo tài khoản mới</h2>
+                        <p>Bắt đầu lưu trữ tiến độ học tiếng Anh của riêng bạn.</p>
+                    </div>
+                    <form id="registerForm">
+                        <div class="input-group">
+                            <label for="regName">Họ và tên</label>
+                            <div class="input-field">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="regName" placeholder="Nguyễn Văn A" required autocomplete="name">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="regEmail">Email</label>
+                            <div class="input-field">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="regEmail" placeholder="example@gmail.com" required autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="regPassword">Mật khẩu</label>
+                            <div class="input-field">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="regPassword" placeholder="Tối thiểu 6 ký tự" required autocomplete="new-password">
+                                <button type="button" class="toggle-password" onclick="togglePassVisibility('regPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="regConfirmPassword">Xác nhận mật khẩu</label>
+                            <div class="input-field">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="regConfirmPassword" placeholder="Nhập lại mật khẩu" required autocomplete="new-password">
+                                <button type="button" class="toggle-password" onclick="togglePassVisibility('regConfirmPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="registerSubmitBtn">
+                            <span class="btn-text">Đăng ký tài khoản</span>
+                            <span class="spinner hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        </button>
+                    </form>
+                    <div class="form-footer">
+                        <span>Bạn đã có tài khoản? <a href="#" id="toLogin">Đăng nhập</a></span>
+                    </div>
+                </div>
+
+                <!-- ALERT BOX -->
+                <div class="auth-alert" id="authAlert"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="supabase-client.js"></script>
+    <script src="progress-sync.js"></script>
+    <script>
+        // Toggle Password Visibility
+        function togglePassVisibility(id) {
+            const input = document.getElementById(id);
+            const icon = input.nextElementSibling.querySelector('i');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.className = "fas fa-eye-slash";
+            } else {
+                input.type = "password";
+                icon.className = "fas fa-eye";
+            }
+        }
+
+        // Script local for form toggles
+        document.addEventListener("DOMContentLoaded", () => {
+            const toRegister = document.getElementById("toRegister");
+            const toLogin = document.getElementById("toLogin");
+            const loginBox = document.getElementById("loginBox");
+            const registerBox = document.getElementById("registerBox");
+            const alertBox = document.getElementById("authAlert");
+
+            toRegister.addEventListener("click", (e) => {
+                e.preventDefault();
+                loginBox.classList.remove("active");
+                setTimeout(() => {
+                    registerBox.classList.add("active");
+                }, 300);
+                hideAlert();
+            });
+
+            toLogin.addEventListener("click", (e) => {
+                e.preventDefault();
+                registerBox.classList.remove("active");
+                setTimeout(() => {
+                    loginBox.classList.add("active");
+                }, 300);
+                hideAlert();
+            });
+
+            // Theme Toggle
+            const themeToggle = document.getElementById("themeToggle");
+            const storedTheme = localStorage.getItem("theme");
+
+            if (storedTheme === "dark") {
+                document.body.classList.add("dark");
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+
+            themeToggle.addEventListener("click", () => {
+                document.body.classList.toggle("dark");
+                const isDark = document.body.classList.contains("dark");
+                localStorage.setItem("theme", isDark ? "dark" : "light");
+                themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+
+            // Helper to show messages
+            function showAlert(message, type = "error") {
+                alertBox.className = `auth-alert ${type} show`;
+                alertBox.innerHTML = `<i class="fas ${type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i> ${message}`;
+            }
+
+            function hideAlert() {
+                alertBox.classList.remove("show");
+            }
+
+            // --- AUTHENTICATION ACTION LOGIC ---
+
+            // 1. SIGN UP (ĐĂNG KÝ)
+            const registerForm = document.getElementById("registerForm");
+            registerForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                hideAlert();
+
+                const name = document.getElementById("regName").value.trim();
+                const email = document.getElementById("regEmail").value.trim();
+                const password = document.getElementById("regPassword").value;
+                const confirmPassword = document.getElementById("regConfirmPassword").value;
+
+                if (password.length < 6) {
+                    showAlert("Mật khẩu phải dài tối thiểu 6 ký tự!");
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    showAlert("Mật khẩu xác nhận không khớp!");
+                    return;
+                }
+
+                const client = getSupabaseClient();
+                if (!client) {
+                    showAlert("Không thể kết nối đến máy chủ Supabase. Hãy kiểm tra cài đặt của bạn.");
+                    return;
+                }
+
+                // Show spinner
+                setLoadingState("registerSubmitBtn", true);
+
+                try {
+                    // Đăng ký tài khoản trên auth
+                    const { data, error } = await client.auth.signUp({
+                        email: email,
+                        password: password
+                    });
+
+                    if (error) throw error;
+
+                    if (data && data.user) {
+                        const userId = data.user.id;
+
+                        // Tạo hồ sơ cá nhân
+                        await updateUserProfile(userId, name);
+
+                        // Tạo tiến độ mặc định
+                        const localProgress = localStorage.getItem("engmaster_progress");
+                        let defaultData = {
+                            learnedWords: [],
+                            quizzesTaken: 0,
+                            quizScores: [],
+                            streak: 1,
+                            lastActiveDate: new Date().toDateString(),
+                            activity: [0, 0, 0, 0, 0, 0, 0],
+                            unlockedAchievements: []
+                        };
+
+                        if (localProgress) {
+                            try {
+                                defaultData = JSON.parse(localProgress);
+                            } catch(e) {}
+                        }
+
+                        // Đồng bộ lên Cloud
+                        await saveProgressToCloud(userId, defaultData);
+
+                        showAlert("Đăng ký thành công! Đang chuyển hướng...", "success");
+                        setTimeout(() => {
+                            window.location.href = "index.html";
+                        }, 1500);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    showAlert(err.message || "Có lỗi xảy ra khi tạo tài khoản!");
+                    setLoadingState("registerSubmitBtn", false);
+                }
+            });
+
+            // 2. SIGN IN (ĐĂNG NHẬP)
+            const loginForm = document.getElementById("loginForm");
+            loginForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                hideAlert();
+
+                const email = document.getElementById("loginEmail").value.trim();
+                const password = document.getElementById("loginPassword").value;
+
+                const client = getSupabaseClient();
+                if (!client) {
+                    showAlert("Không thể kết nối đến máy chủ Supabase.");
+                    return;
+                }
+
+                setLoadingState("loginSubmitBtn", true);
+
+                try {
+                    const { data, error } = await client.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
+
+                    if (error) throw error;
+
+                    if (data && data.user) {
+                        const userId = data.user.id;
+
+                        // Tải dữ liệu tiến độ từ Cloud
+                        const cloudProgress = await loadProgressFromCloud(userId);
+                        const localProgressRaw = localStorage.getItem("engmaster_progress");
+
+                        let finalProgress = cloudProgress;
+
+                        // Nếu có tiến độ ở local, tiến hành gộp dữ liệu
+                        if (localProgressRaw) {
+                            try {
+                                const localProgress = JSON.parse(localProgressRaw);
+                                if (cloudProgress) {
+                                    finalProgress = mergeProgress(localProgress, cloudProgress);
+                                } else {
+                                    finalProgress = localProgress;
+                                }
+                                // Đồng bộ ngược lại Cloud
+                                await saveProgressToCloud(userId, finalProgress);
+                            } catch(e) {
+                                console.warn("Lỗi gộp tiến độ:", e);
+                            }
+                        }
+
+                        // Lưu lại LocalStorage
+                        if (finalProgress) {
+                            localStorage.setItem("engmaster_progress", JSON.stringify(finalProgress));
+                        }
+
+                        showAlert("Đăng nhập thành công! Đang chuyển hướng...", "success");
+                        setTimeout(() => {
+                            window.location.href = "index.html";
+                        }, 1500);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    showAlert(err.message || "Sai email hoặc mật khẩu!");
+                    setLoadingState("loginSubmitBtn", false);
+                }
+            });
+
+            function setLoadingState(btnId, isLoading) {
+                const btn = document.getElementById(btnId);
+                const text = btn.querySelector(".btn-text");
+                const spinner = btn.querySelector(".spinner");
+
+                if (isLoading) {
+                    btn.classList.add("disabled");
+                    btn.disabled = true;
+                    text.classList.add("hidden");
+                    spinner.classList.remove("hidden");
+                } else {
+                    btn.classList.remove("disabled");
+                    btn.disabled = false;
+                    text.classList.remove("hidden");
+                    spinner.classList.add("hidden");
+                }
+            }
+
+            // Quên mật khẩu
+            document.getElementById("forgotPassLink").addEventListener("click", async (e) => {
+                e.preventDefault();
+                const email = document.getElementById("loginEmail").value.trim();
+                if (!email) {
+                    showAlert("Vui lòng điền email của bạn vào trường Email trước để đặt lại mật khẩu!");
+                    return;
+                }
+
+                const client = getSupabaseClient();
+                if (!client) return;
+
+                try {
+                    const { error } = await client.auth.resetPasswordForEmail(email, {
+                        redirectTo: window.location.origin + '/auth.html',
+                    });
+                    if (error) throw error;
+                    showAlert("Email khôi phục mật khẩu đã được gửi! Hãy kiểm tra hòm thư của bạn.", "success");
+                } catch (err) {
+                    showAlert(err.message || "Không gửi được email đặt lại mật khẩu.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

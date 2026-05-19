@@ -181,9 +181,13 @@ let currentConvTopic = "greeting";
 let currentConvUtterances = [];
 let synth = window.speechSynthesis;
 
+// Supabase Auth State
+let currentUser = null;
+
 /* ==================== APP INITIALIZATION ==================== */
-document.addEventListener("DOMContentLoaded", () => {
-    loadProgress();
+document.addEventListener("DOMContentLoaded", async () => {
+    await checkSupabaseAuth();
+    await loadProgress();
     initNavbar();
     initTheme();
     initStatsCount();
@@ -277,18 +281,98 @@ function initNavbar() {
     });
 }
 
+/* ==================== SUPABASE AUTH LOGIC ==================== */
+async function checkSupabaseAuth() {
+    const client = getSupabaseClient();
+    if (!client) return;
+
+    try {
+        const { data: { session } } = await client.auth.getSession();
+        const authNav = document.getElementById("authNavContainer");
+        const userNav = document.getElementById("userNavContainer");
+
+        if (session && session.user) {
+            currentUser = session.user;
+
+            // Tải thông tin Profile hiển thị
+            const profile = await getUserProfile(currentUser.id);
+            const dispName = profile ? profile.display_name : (currentUser.email.split('@')[0]);
+
+            document.getElementById("userNameNav").innerText = dispName;
+
+            // Hiển thị cụm User Menu và ẩn cụm Login
+            if (authNav) authNav.classList.add("hidden");
+            if (userNav) userNav.classList.remove("hidden");
+
+            // Thiết lập sự kiện đăng xuất
+            const logoutBtn = document.getElementById("logoutBtnNav");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", async (e) => {
+                    e.preventDefault();
+                    const { error } = await client.auth.signOut();
+                    if (!error) {
+                        // Reset về Guest Mode
+                        localStorage.removeItem("engmaster_progress");
+                        window.location.reload();
+                    }
+                });
+            }
+
+            // Click vào Avatar mở dropdown menu tiện dụng trên Mobile
+            const avatarNav = document.getElementById("userAvatarNav");
+            if (avatarNav) {
+                avatarNav.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    userNav.classList.toggle("active");
+                });
+                document.addEventListener("click", () => {
+                    userNav.classList.remove("active");
+                });
+            }
+        } else {
+            currentUser = null;
+            if (authNav) authNav.classList.remove("hidden");
+            if (userNav) userNav.classList.add("hidden");
+        }
+    } catch (err) {
+        console.error("Lỗi Auth Supabase:", err);
+    }
+}
+
 /* ==================== LOCALSTORAGE PROGRESS ==================== */
-function loadProgress() {
+async function loadProgress() {
+    // 1. Nếu đã đăng nhập, tải từ Cloud Supabase
+    if (currentUser) {
+        const cloudData = await loadProgressFromCloud(currentUser.id);
+        if (cloudData) {
+            userProgress = cloudData;
+            // Cập nhật lại local cache để sử dụng offline khi cần
+            localStorage.setItem("engmaster_progress", JSON.stringify(userProgress));
+            return;
+        }
+    }
+
+    // 2. Fallback về LocalStorage (Guest Mode hoặc khi lỗi Cloud/Offline)
     const data = localStorage.getItem("engmaster_progress");
     if (data) {
-        userProgress = JSON.parse(data);
+        try {
+            userProgress = JSON.parse(data);
+        } catch (e) {
+            console.error("Lỗi parse JSON progress:", e);
+        }
     } else {
         saveProgress();
     }
 }
 
-function saveProgress() {
+async function saveProgress() {
+    // Lưu vào LocalStorage làm cache cục bộ
     localStorage.setItem("engmaster_progress", JSON.stringify(userProgress));
+
+    // Nếu đã đăng nhập, tự động đồng bộ thời gian thực lên Supabase Cloud
+    if (currentUser) {
+        await saveProgressToCloud(currentUser.id, userProgress);
+    }
 }
 
 function updateProgressStat(key, value) {
