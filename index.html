@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EngMaster - Hoc Tieng Anh Online</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Eng<span class="highlight">Master</span></span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active"><i class="fas fa-home"></i> Trang chu</a></li>
+                <li><a href="#vocabulary"><i class="fas fa-book"></i> Tu vung</a></li>
+                <li><a href="#grammar"><i class="fas fa-pen-fancy"></i> Ngu phap</a></li>
+                <li><a href="#quiz"><i class="fas fa-question-circle"></i> Quiz</a></li>
+                <li><a href="#conversation"><i class="fas fa-comments"></i> Hoi thoai</a></li>
+                <li><a href="#progress"><i class="fas fa-chart-line"></i> Tien do</a></li>
+            </ul>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" title="Chuyen giao dien">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-star"></i> Mien phi 100%
+            </div>
+            <h1>Chinh phuc <span class="gradient-text">Tieng Anh</span><br>moi ngay</h1>
+            <p>Hoc tu vung, ngu phap, luyen phat am va kiem tra kien thuc voi phuong phap khoa hoc, hieu qua.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="500">0</span>+
+                    <span class="stat-label">Tu vung</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="50">0</span>+
+                    <span class="stat-label">Bai ngu phap</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="100">0</span>+
+                    <span class="stat-label">Cau hoi Quiz</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#vocabulary" class="btn btn-primary"><i class="fas fa-rocket"></i> Bat dau hoc</a>
+                <a href="#quiz" class="btn btn-outline"><i class="fas fa-play"></i> Lam Quiz ngay</a>
+            </div>
+        </div>
+        <div class="hero-illustration">
+            <div class="floating-card card-1">
+                <div class="card-icon">A</div>
+                <div class="card-text">Hello!</div>
+            </div>
+            <div class="floating-card card-2">
+                <div class="card-icon">B</div>
+                <div class="card-text">Thank you!</div>
+            </div>
+            <div class="floating-card card-3">
+                <div class="card-icon">C</div>
+                <div class="card-text">Good morning!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vocabulary Section -->
+    <section class="section" id="vocabulary">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-book-open"></i> Tu vung</span>
+                <h2>Hoc <span class="gradient-text">Tu vung</span> theo chu de</h2>
+                <p>Chon chu de va bat dau hoc voi flashcard tuong tac</p>
+            </div>
+
+            <div class="topic-filter">
+                <button class="filter-btn active" data-topic="all">
+                    <i class="fas fa-th"></i> Tat ca
+                </button>
+                <button class="filter-btn" data-topic="daily">
+                    <i class="fas fa-sun"></i> Hang ngay
+                </button>
+                <button class="filter-btn" data-topic="travel">
+                    <i class="fas fa-plane"></i> Du lich
+                </button>
+                <button class="filter-btn" data-topic="food">
+                    <i class="fas fa-utensils"></i> Am thuc
+                </button>
+                <button class="filter-btn" data-topic="work">
+                    <i class="fas fa-briefcase"></i> Cong viec
+                </button>
+                <button class="filter-btn" data-topic="nature">
+                    <i class="fas fa-leaf"></i> Thien nhien
+                </button>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard-wrapper">
+                    <div class="flashcard" id="flashcard">
+                        <div class="flashcard-front">
+                            <div class="flashcard-level" id="wordLevel">A1</div>
+                            <div class="flashcard-word" id="wordEng">Hello</div>
+                            <div class="flashcard-phonetic" id="wordPhonetic">/heloʊ/</div>
+                            <button class="speak-btn" id="speakBtn" title="Nghe phat am">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <div class="flashcard-hint">Nhan de xem nghia</div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="flashcard-meaning" id="wordVie">Xin chao</div>
+                            <div class="flashcard-type" id="wordType">Than tu</div>
+                            <div class="flashcard-example" id="wordExample">
+                                <i class="fas fa-quote-left"></i>
+                                <span>"Hello, how are you today?"</span>
+                            </div>
+                            <div class="flashcard-hint">Nhan de quay lai</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flashcard-controls">
+                    <button class="control-btn" id="prevWord" title="Tu truoc">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="word-counter" id="wordCounter">1 / 10</span>
+                    <button class="control-btn" id="nextWord" title="Tu tiep theo">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="flashcard-actions">
+                    <button class="action-btn know-btn" id="knowBtn">
+                        <i class="fas fa-check"></i> Da biet
+                    </button>
+                    <button class="action-btn learn-btn" id="learnBtn">
+                        <i class="fas fa-redo"></i> Hoc lai
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grammar Section -->
+    <section class="section section-alt" id="grammar">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-pen-fancy"></i> Ngu phap</span>
+                <h2>Ngu phap <span class="gradient-text">co ban</span></h2>
+                <p>Nam vung cac cau truc ngu phap quan trong nhat</p>
+            </div>
+
+            <div class="grammar-tabs">
+                <button class="grammar-tab active" data-tab="tenses">Thi (Tenses)</button>
+                <button class="grammar-tab" data-tab="sentences">Cau truc cau</button>
+                <button class="grammar-tab" data-tab="modal">Modal Verbs</button>
+                <button class="grammar-tab" data-tab="conditional">Cau dieu kien</button>
+            </div>
+
+            <div class="grammar-content" id="grammarContent"></div>
+
+            <div class="grammar-exercise">
+                <h3><i class="fas fa-pencil-alt"></i> Bai tap thuc hanh</h3>
+                <div class="exercise-card" id="exerciseCard">
+                    <p class="exercise-question" id="exerciseQuestion">
+                        She ___ (go) to school every day.
+                    </p>
+                    <div class="exercise-options" id="exerciseOptions"></div>
+                    <div class="exercise-feedback" id="exerciseFeedback"></div>
+                </div>
+                <div class="exercise-nav">
+                    <button class="btn btn-outline" id="prevExercise">
+                        <i class="fas fa-arrow-left"></i> Cau truoc
+                    </button>
+                    <span class="exercise-counter" id="exerciseCounter">1 / 5</span>
+                    <button class="btn btn-primary" id="nextExercise">
+                        Cau tiep <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section class="section" id="quiz">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-trophy"></i> Kiem tra</span>
+                <h2>Quiz <span class="gradient-text">Tieng Anh</span></h2>
+                <p>Kiem tra kien thuc cua ban voi cac cau hoi trac nghiem thu vi</p>
+            </div>
+
+            <div class="quiz-setup" id="quizSetup">
+                <div class="quiz-options-grid">
+                    <div class="quiz-option-card selected" data-type="vocabulary">
+                        <div class="option-icon"><i class="fas fa-book"></i></div>
+                        <h3>Tu vung</h3>
+                        <p>Kiem tra von tu vung</p>
+                    </div>
+                    <div class="quiz-option-card" data-type="grammar">
+                        <div class="option-icon"><i class="fas fa-pen-fancy"></i></div>
+                        <h3>Ngu phap</h3>
+                        <p>Kiem tra ngu phap</p>
+                    </div>
+                    <div class="quiz-option-card" data-type="listening">
+                        <div class="option-icon"><i class="fas fa-headphones"></i></div>
+                        <h3>Nghe hieu</h3>
+                        <p>Luyen ky nang nghe</p>
+                    </div>
+                    <div class="quiz-option-card" data-type="mixed">
+                        <div class="option-icon"><i class="fas fa-random"></i></div>
+                        <h3>Tong hop</h3>
+                        <p>Tron tat ca dang</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg" id="startQuiz">
+                    <i class="fas fa-play"></i> Bat dau Quiz
+                </button>
+            </div>
+
+            <div class="quiz-game hidden" id="quizGame">
+                <div class="quiz-header">
+                    <div class="quiz-progress">
+                        <div class="quiz-progress-bar" id="quizProgressBar"></div>
+                    </div>
+                    <div class="quiz-info">
+                        <span class="quiz-question-num" id="quizQuestionNum">Cau 1/10</span>
+                        <span class="quiz-timer" id="quizTimer">
+                            <i class="fas fa-clock"></i> <span id="timerValue">30</span>s
+                        </span>
+                        <span class="quiz-score" id="quizScore">
+                            <i class="fas fa-star"></i> 0 diem
+                        </span>
+                    </div>
+                </div>
+                <div class="quiz-question-card">
+                    <div class="quiz-question" id="quizQuestion"></div>
+                    <div class="quiz-answers" id="quizAnswers"></div>
+                </div>
+            </div>
+
+            <div class="quiz-result hidden" id="quizResult">
+                <div class="result-animation">
+                    <div class="result-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="result-bg" cx="50" cy="50" r="45"/>
+                            <circle class="result-progress" cx="50" cy="50" r="45" id="resultCircle"/>
+                        </svg>
+                        <div class="result-percentage" id="resultPercentage">0%</div>
+                    </div>
+                </div>
+                <h3 id="resultTitle">Ket qua</h3>
+                <p id="resultMessage"></p>
+                <div class="result-actions">
+                    <button class="btn btn-primary" id="retryQuiz">
+                        <i class="fas fa-redo"></i> Lam lai
+                    </button>
+                    <button class="btn btn-outline" id="newQuiz">
+                        <i class="fas fa-plus"></i> Quiz moi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conversation Section -->
+    <section class="section section-alt" id="conversation">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-comments"></i> Hoi thoai</span>
+                <h2>Luyen <span class="gradient-text">Hoi thoai</span></h2>
+                <p>Hoc qua cac tinh huong giao tiep thuc te</p>
+            </div>
+
+            <div class="conversation-topics">
+                <button class="topic-btn active" data-conv="greeting">
+                    <i class="fas fa-hand-peace"></i> Chao hoi
+                </button>
+                <button class="topic-btn" data-conv="shopping">
+                    <i class="fas fa-shopping-bag"></i> Mua sam
+                </button>
+                <button class="topic-btn" data-conv="restaurant">
+                    <i class="fas fa-utensils"></i> Nha hang
+                </button>
+                <button class="topic-btn" data-conv="hotel">
+                    <i class="fas fa-hotel"></i> Khach san
+                </button>
+                <button class="topic-btn" data-conv="airport">
+                    <i class="fas fa-plane-departure"></i> San bay
+                </button>
+            </div>
+
+            <div class="conversation-container" id="conversationContainer"></div>
+
+            <div class="conversation-controls">
+                <button class="btn btn-outline" id="playConversation">
+                    <i class="fas fa-play"></i> Phat hoi thoai
+                </button>
+                <button class="btn btn-primary" id="practiceConversation">
+                    <i class="fas fa-microphone"></i> Luyen noi
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section class="section" id="progress">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-chart-line"></i> Tien do</span>
+                <h2>Theo doi <span class="gradient-text">tien do</span> hoc</h2>
+                <p>Xem thong ke qua trinh hoc tap cua ban</p>
+            </div>
+
+            <div class="progress-grid">
+                <div class="progress-card">
+                    <div class="progress-card-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="progress-card-info">
+                        <h3 id="learnedWords">0</h3>
+                        <p>Tu da hoc</p>
+                    </div>
+                </div>
+                <div class="progress-card">
+                    <div class="progress-card-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="progress-card-info">
+                        <h3 id="quizzesTaken">0</h3>
+                        <p>Quiz da lam</p>
+                    </div>
+                </div>
+                <div class="progress-card">
+                    <div class="progress-card-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="progress-card-info">
+                        <h3 id="avgScore">0%</h3>
+                        <p>Diem trung binh</p>
+                    </div>
+                </div>
+                <div class="progress-card">
+                    <div class="progress-card-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="progress-card-info">
+                        <h3 id="streak">0</h3>
+                        <p>Ngay streak</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-chart-container">
+                <h3><i class="fas fa-chart-bar"></i> Hoat dong 7 ngay gan day</h3>
+                <div class="chart" id="activityChart"></div>
+            </div>
+
+            <div class="achievements">
+                <h3><i class="fas fa-medal"></i> Thanh tuu</h3>
+                <div class="achievements-grid" id="achievementsGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="footer-logo">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Eng<span class="highlight">Master</span></span>
+                    </a>
+                    <p>Nen tang hoc tieng Anh mien phi, hieu qua cho moi nguoi.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Hoc tap</h4>
+                    <ul>
+                        <li><a href="#vocabulary">Tu vung</a></li>
+                        <li><a href="#grammar">Ngu phap</a></li>
+                        <li><a href="#quiz">Kiem tra</a></li>
+                        <li><a href="#conversation">Hoi thoai</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Lien he</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-envelope"></i> support@engmaster.vn</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> 0123-456-789</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EngMaster. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" title="Len dau trang">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
