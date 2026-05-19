@@ -230,7 +230,11 @@
 
                 const client = getSupabaseClient();
                 if (!client) {
-                    showAlert("Không thể kết nối đến máy chủ Supabase. Hãy kiểm tra cài đặt của bạn.");
+                    if (typeof SUPABASE_URL === 'undefined' || SUPABASE_URL === "YOUR_SUPABASE_URL") {
+                        showAlert("Vui lòng mở file 'supabase-client.js' và thay thế 'YOUR_SUPABASE_URL' và 'YOUR_SUPABASE_ANON_KEY' bằng API Key từ dự án Supabase của bạn trước!");
+                    } else {
+                        showAlert("Không thể tải thư viện Supabase từ CDN. Vui lòng kiểm tra lại kết nối Internet.");
+                    }
                     return;
                 }
 
@@ -296,7 +300,11 @@
 
                 const client = getSupabaseClient();
                 if (!client) {
-                    showAlert("Không thể kết nối đến máy chủ Supabase.");
+                    if (typeof SUPABASE_URL === 'undefined' || SUPABASE_URL === "YOUR_SUPABASE_URL") {
+                        showAlert("Vui lòng mở file 'supabase-client.js' và cấu hình URL / Anon Key từ dự án Supabase của bạn trước!");
+                    } else {
+                        showAlert("Không thể tải thư viện Supabase. Hãy kiểm tra kết nối mạng của bạn.");
+                    }
                     return;
                 }
 

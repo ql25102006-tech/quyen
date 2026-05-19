@@ -8,18 +8,31 @@ const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
 let supabaseClient = null;
 
 function initSupabase() {
+    // 1. Kiểm tra xem người dùng đã cấu hình Key thật chưa
+    if (SUPABASE_URL === "YOUR_SUPABASE_URL" || SUPABASE_ANON_KEY === "YOUR_SUPABASE_ANON_KEY") {
+        console.warn("CẢNH BÁO: Bạn chưa thiết lập URL và Anon Key của dự án Supabase trong file 'supabase-client.js'!");
+        return null;
+    }
+
     if (supabaseClient) return supabaseClient;
 
     // Khi dùng CDN, đối tượng toàn cục có tên là 'supabase'
-    const globalSupabase = window.supabase || (typeof supabase !== 'undefined' ? supabase : null);
+    const globalSupabase = window.supabase || (typeof window.supabase !== 'undefined' ? window.supabase : null);
 
     if (globalSupabase && typeof globalSupabase.createClient === 'function') {
         try {
+            // Kiểm tra tính hợp lệ của định dạng URL
+            if (!SUPABASE_URL.startsWith("http://") && !SUPABASE_URL.startsWith("https://")) {
+                console.error("Lỗi: SUPABASE_URL phải bắt đầu bằng http:// hoặc https://");
+                return null;
+            }
             supabaseClient = globalSupabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             return supabaseClient;
         } catch (e) {
             console.error("Lỗi khi khởi tạo Supabase Client:", e);
         }
+    } else {
+        console.error("Lỗi: Thư viện Supabase JS chưa được tải thành công từ CDN.");
     }
     return null;
 }
